@@ -92,6 +92,7 @@ const App = () => {
       <Total exercises1 = {course.parts[0].exercises} exercises2 = {course.parts[1].exercises} exercises3={course.parts[2].exercises} />
       {/* ex1
       <Content part1={part1} exercises1={exercises1} part2={part2} exercises2={exercises2} part3={part3} exercises3={exercises3} />
+      test
       */}
     </div>
   )
