@@ -5,6 +5,8 @@ const Header = ({title}) => <div><h1>{title}</h1></div>
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
+const Statistic = ({type, count}) => <li>{type} {count}</li>
+
 const Statistics = ({good, neutral, bad}) => { 
   const total = good + neutral + bad
   const average = (good - bad)/total; {/*(good: 1, neutral: 0, bad: -1) */}
@@ -18,10 +20,11 @@ const Statistics = ({good, neutral, bad}) => {
   return (
     <div>
       <h1>Statistics</h1>
+
       <ul>
-        <li>good {good}</li>
-        <li>neutral {neutral} </li>
-        <li>bad {bad}</li>
+        <Statistic type="good" count={good}/>
+        <Statistic type="neutral" count={neutral}/>
+        <Statistic type="bad" count={bad}/>
       </ul>
       
       <p>Total feedbacks: {total} </p>
