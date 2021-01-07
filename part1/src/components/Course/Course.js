@@ -6,6 +6,7 @@ const Course = ({course}) => {
 
     return (
         <div>
+            {console.log("COURSE: ",course)}
             <Header name={course.name} />
             <Content content={course}/>
             
