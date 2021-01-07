@@ -2,20 +2,27 @@ import React, { useState } from 'react'
 import Name from './components/Name'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
+  const [ persons, setPersons ] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
   const [ newName, setNewName ] = useState('')
 
-  const addName = (event) => {
+  const addPerson = (event) => {
     event.preventDefault()
 
-    const nameObject = {
-      content: newName,
-      date: new Date().toISOString(),
-      //important: Math.random() > 0.5,
-      id: persons.length + 1,
+    const personObject = {
+      name: newName
     }
-  
-    setPersons(persons.concat(nameObject))
+
+    const allNames = persons.map(person => person.name)
+
+    // check if the same name already exists
+    if(allNames.includes(newName)){
+      alert(`${newName} is already been added`)
+      return
+    }
+
+    setPersons(persons.concat(personObject))
     setNewName('')
   }
 
@@ -23,19 +30,13 @@ const App = () => {
     console.log(event.target.value)
     setNewName(event.target.value)
   }
-  /*
-  const namesToShow = showAll
-    ? persons
-    : persons.filter(note => note.id) // may need a change
-  */
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addName}>
+      <form onSubmit={addPerson}>
         <div>
-          
-          name: <input onChange={handleNameChange} />
+          name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -43,8 +44,8 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       
-      {persons.map((name, i) => 
-        <Name key={i} name={name} />
+      {persons.map((person) => 
+        <Name key={person.name} name={person.name} />
       )}
 
     </div>
