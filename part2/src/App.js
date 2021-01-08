@@ -24,8 +24,9 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newPhone,
-      id: persons.length + 1
+      id: persons.length + 1,
     }
+
 
     const allNames = persons.map(person => person.name)
 
@@ -34,9 +35,16 @@ const App = () => {
       alert(`${newName} is already been added`)
       return // very important!!!
     }
-
-    setPersons(persons.concat(personObject))
-    setNewName('')
+    // add to the database
+    else {
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+            setPersons(persons.concat(response.data))
+            setNewName('')
+            setNewPhone('')
+          })
+        }
   }
 
   const handleNameChange = (event) => {
