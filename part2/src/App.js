@@ -1,24 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect  } from 'react'
 import Person from './components/Person'
 import PersonForm from './components/PersonForm'
+import axios from 'axios'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([
-    { 
-      name: 'Arto Hellas',
-      phone: '071123456' 
-    }
-  ]) 
+  const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newPhone, setNewPhone ] = useState('')
 
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        setPersons(response.data)
+      })
+  }, [])
 
   const addPerson = (event) => {
     event.preventDefault()
 
     const personObject = {
       name: newName,
-      phone: newPhone
+      number: newPhone,
+      id: persons.length + 1
     }
 
     const allNames = persons.map(person => person.name)
@@ -62,7 +68,7 @@ const App = () => {
       <h2>Numbers</h2>
       
       {persons.map((person) => 
-        <Person key={person.name} name={person.name} phone={person.phone} />
+        <Person key={person.id} name={person.name} phone={person.number} />
       )}
 
     </div>
