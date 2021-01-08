@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Name = ({name}) => <p>{name} </p>
+const Name = ({name}) => <span> {name} </span>
 
 export default Name
