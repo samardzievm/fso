@@ -3,13 +3,12 @@ import Name from './Name'
 import Phone from './Phone'
 
 
-const Person = ({id, name, phone, handleDelete}) => {
+const Person = ({ person, removePerson }) => {
     return (
         <div>
-            <p>
-                <Name name={name} /> <Phone phone={phone} /> 
-                <button onClick={() => handleDelete(id)}> Delete</button>
-            </p>
+            <Name name={person.name} /> 
+            <Phone phone={person.number} /> 
+            <button onClick={() => removePerson(person.id)}> Delete</button>
         </div>
     )
 } 
