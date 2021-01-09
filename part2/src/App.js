@@ -1,5 +1,6 @@
 import React, { useState, useEffect  } from 'react'
 import Person from './components/Person'
+import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import axios from 'axios'
 import personService from './services/persons'
@@ -56,6 +57,9 @@ const App = () => {
         //Update state --> filter out deleted person
         const filteredPersons = persons.filter((person) => person.id !== id);
         setPersons(filteredPersons);
+
+        // reset filter
+        //setFilter("");
       });
     }
   };
@@ -88,10 +92,14 @@ const App = () => {
       </form>
 
       <h2>Numbers</h2>
-      
-      {persons.map((person) => 
-        <Person key={person.id} id={person.id} name={person.name} phone={person.number} handleDelete={removePerson(person.id)} />
-      )}
+      <Persons persons={persons} removePerson={removePerson} />
+
+      {/* 
+            {persons.map((person) => 
+              <Person key={person.id} id={person.id} name={person.name} phone={person.number} handleDelete={removePerson(person.id)} />
+            )}
+      */}
+
 
     </div>
   )
