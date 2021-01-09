@@ -48,6 +48,19 @@ const App = () => {
     }
   }
 
+  const removePerson = (id) => {
+    const person = persons.find((p) => p.id === id);
+    const confirmDelete = window.confirm(`Delete ${person.name}?`);
+    if (confirmDelete) {
+      personService.deletePerson(id).then(() => {
+        //Update state --> filter out deleted person
+        const filteredPersons = persons.filter((person) => person.id !== id);
+        setPersons(filteredPersons);
+      });
+    }
+  };
+  
+
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
@@ -77,11 +90,11 @@ const App = () => {
       <h2>Numbers</h2>
       
       {persons.map((person) => 
-        <Person key={person.id} name={person.name} phone={person.number} />
+        <Person key={person.id} id={person.id} name={person.name} phone={person.number} handleDelete={removePerson(person.id)} />
       )}
 
     </div>
   )
-}
+      }
 
 export default App
