@@ -1,14 +1,14 @@
 import React, { useState, useEffect  } from 'react'
-import Person from './components/Person'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import personService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newPhone, setNewPhone ] = useState('')
-
+  const [ successMessage, setSuccessMessage] = useState(null) 
   useEffect(() => {
     console.log('effect')
     
@@ -44,8 +44,14 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewPhone('')
+          setSuccessMessage(
+            `Added ${newName}`
+          )
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 3000)
         })
-    }
+      }
   }
 
   const removePerson = (id) => {
@@ -58,6 +64,7 @@ const App = () => {
       });
     }
   };
+  
   
 
   const handleNameChange = (event) => {
@@ -72,7 +79,7 @@ const App = () => {
   return (
     <div>
       
-      <h2>Phonebook</h2>
+      <h2 className="phonebook">Phonebook</h2>
       
       <form onSubmit={addPerson}>
         
@@ -82,11 +89,12 @@ const App = () => {
         </div>
 
         <div>
-          <button type="submit">add</button>
+          <button type="submit" >add</button>
         </div>
       </form>
 
       <h2>Numbers</h2>
+      <Notification message={successMessage} />
       <Persons persons={persons} removePerson={removePerson} />
 
     </div>
